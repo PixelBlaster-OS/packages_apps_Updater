@@ -152,4 +152,8 @@
     <string name="new_updates_channel_title">New updates</string>
     <string name="ongoing_channel_title">Ongoing downloads</string>
     <string name="update_failed_channel_title">Update failed</string>
+    <string name="pixel_blaster_updater">Pixel Blaster Updater</string>
+    <string name="build_info">Build Info</string>
+    <string name="build_date">Build Date</string>
+    <string name="last_check">Last Check</string>
 </resources>
