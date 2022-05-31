@@ -15,18 +15,14 @@
  */
 package org.lineageos.updater;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.net.Uri;
 import android.os.BatteryManager;
 import android.os.PowerManager;
-import android.text.SpannableString;
 import android.text.format.Formatter;
 import android.text.method.LinkMovementMethod;
-import android.text.util.Linkify;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -35,13 +31,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.view.ContextThemeWrapper;
@@ -55,7 +47,6 @@ import com.google.android.material.snackbar.Snackbar;
 
 import org.lineageos.updater.controller.UpdaterController;
 import org.lineageos.updater.controller.UpdaterService;
-import org.lineageos.updater.misc.BuildInfoUtils;
 import org.lineageos.updater.misc.Constants;
 import org.lineageos.updater.misc.StringGenerator;
 import org.lineageos.updater.misc.Utils;
@@ -98,30 +89,26 @@ public class UpdatesListAdapter extends RecyclerView.Adapter<UpdatesListAdapter.
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final Button mAction;
-        private final ImageButton mMenu;
-
-        private final TextView mBuildDate;
-        private final TextView mBuildVersion;
-        private final TextView mBuildSize;
-
-        private final LinearLayout mProgress;
+        private final TextView mHeaderTitle;
+        private final TextView mUpdateVersion;
+        private final TextView mUpdateSize;
         private final ProgressBar mProgressBar;
         private final TextView mProgressText;
-        private final TextView mPercentage;
+
+        private final TextView mDescription;
 
         public ViewHolder(final View view) {
             super(view);
-            mAction = view.findViewById(R.id.update_action);
-            mMenu = view.findViewById(R.id.update_menu);
+            mAction = view.findViewById(R.id.btn_action);
+            mHeaderTitle = view.findViewById(R.id.tv_header);
 
-            mBuildDate = view.findViewById(R.id.build_date);
-            mBuildVersion = view.findViewById(R.id.build_version);
-            mBuildSize = view.findViewById(R.id.build_size);
+            mUpdateVersion = view.findViewById(R.id.tv_version);
+            mUpdateSize = view.findViewById(R.id.tv_update_size);
 
-            mProgress = view.findViewById(R.id.progress);
             mProgressBar = view.findViewById(R.id.progress_bar);
             mProgressText = view.findViewById(R.id.progress_text);
-            mPercentage = view.findViewById(R.id.progress_percent);
+
+            mDescription = view.findViewById(R.id.tv_description_1);
         }
     }
 
@@ -156,17 +143,13 @@ public class UpdatesListAdapter extends RecyclerView.Adapter<UpdatesListAdapter.
     }
 
     private void handleActiveStatus(ViewHolder viewHolder, UpdateInfo update) {
-        boolean canDelete = false;
 
         final String downloadId = update.getDownloadId();
         if (mUpdaterController.isDownloading(downloadId)) {
-            canDelete = true;
             String downloaded = Formatter.formatShortFileSize(mActivity,
                     update.getFile().length());
             String total = Formatter.formatShortFileSize(mActivity, update.getFileSize());
-            String percentage = NumberFormat.getPercentInstance().format(
-                    update.getProgress() / 100.f);
-            viewHolder.mPercentage.setText(percentage);
+
             long eta = update.getEta();
             if (eta > 0) {
                 CharSequence etaString = StringGenerator.formatETA(mActivity, eta * 1000);
@@ -179,6 +162,7 @@ public class UpdatesListAdapter extends RecyclerView.Adapter<UpdatesListAdapter.
             setButtonAction(viewHolder.mAction, Action.PAUSE, downloadId, true);
             viewHolder.mProgressBar.setIndeterminate(update.getStatus() == UpdateStatus.STARTING);
             viewHolder.mProgressBar.setProgress(update.getProgress());
+            viewHolder.mHeaderTitle.setText(R.string.header_downloading);
         } else if (mUpdaterController.isInstallingUpdate(downloadId)) {
             setButtonAction(viewHolder.mAction, Action.CANCEL_INSTALLATION, downloadId, true);
             boolean notAB = !mUpdaterController.isInstallingABUpdate();
@@ -186,59 +170,58 @@ public class UpdatesListAdapter extends RecyclerView.Adapter<UpdatesListAdapter.
                     update.getFinalizing() ?
                             R.string.finalizing_package :
                             R.string.preparing_ota_first_boot);
-            String percentage = NumberFormat.getPercentInstance().format(
-                    update.getInstallProgress() / 100.f);
-            viewHolder.mPercentage.setText(percentage);
+
             viewHolder.mProgressBar.setIndeterminate(false);
             viewHolder.mProgressBar.setProgress(update.getInstallProgress());
+            viewHolder.mHeaderTitle.setText(R.string.header_installing);
         } else if (mUpdaterController.isVerifyingUpdate(downloadId)) {
             setButtonAction(viewHolder.mAction, Action.INSTALL, downloadId, false);
             viewHolder.mProgressText.setText(R.string.list_verifying_update);
             viewHolder.mProgressBar.setIndeterminate(true);
+            viewHolder.mHeaderTitle.setText(R.string.header_verifying);
         } else {
-            canDelete = true;
             setButtonAction(viewHolder.mAction, Action.RESUME, downloadId, !isBusy());
             String downloaded = Formatter.formatShortFileSize(mActivity,
                     update.getFile().length());
             String total = Formatter.formatShortFileSize(mActivity, update.getFileSize());
-            String percentage = NumberFormat.getPercentInstance().format(
-                    update.getProgress() / 100.f);
-            viewHolder.mPercentage.setText(percentage);
+
             viewHolder.mProgressText.setText(mActivity.getString(
                     R.string.list_download_progress_newer, downloaded, total));
             viewHolder.mProgressBar.setIndeterminate(false);
             viewHolder.mProgressBar.setProgress(update.getProgress());
         }
 
-        viewHolder.mMenu.setOnClickListener(getClickListener(update, canDelete, viewHolder.mMenu));
-        viewHolder.mProgress.setVisibility(View.VISIBLE);
+        viewHolder.mDescription.setText(mActivity.getString(R.string.tv_description_1_text,
+                Utils.getDeviceModel()));
+        viewHolder.mProgressBar.setVisibility(View.VISIBLE);
         viewHolder.mProgressText.setVisibility(View.VISIBLE);
-        viewHolder.mBuildSize.setVisibility(View.INVISIBLE);
     }
 
     private void handleNotActiveStatus(ViewHolder viewHolder, UpdateInfo update) {
         final String downloadId = update.getDownloadId();
         if (mUpdaterController.isWaitingForReboot(downloadId)) {
-            viewHolder.mMenu.setOnClickListener(getClickListener(update, false, viewHolder.mMenu));
             setButtonAction(viewHolder.mAction, Action.REBOOT, downloadId, true);
+            viewHolder.mHeaderTitle.setText(R.string.header_installed);
         } else if (update.getPersistentStatus() == UpdateStatus.Persistent.VERIFIED) {
-            viewHolder.mMenu.setOnClickListener(getClickListener(update, true, viewHolder.mMenu));
             setButtonAction(viewHolder.mAction,
                     Utils.canInstall(update) ? Action.INSTALL : Action.DELETE,
                     downloadId, !isBusy());
+            viewHolder.mHeaderTitle.setText(R.string.header_available);
         } else if (!Utils.canInstall(update)) {
-            viewHolder.mMenu.setOnClickListener(getClickListener(update, false, viewHolder.mMenu));
             setButtonAction(viewHolder.mAction, Action.INFO, downloadId, !isBusy());
         } else {
-            viewHolder.mMenu.setOnClickListener(getClickListener(update, false, viewHolder.mMenu));
             setButtonAction(viewHolder.mAction, Action.DOWNLOAD, downloadId, !isBusy());
+            viewHolder.mHeaderTitle.setText(R.string.header_available);
         }
         String fileSize = Formatter.formatShortFileSize(mActivity, update.getFileSize());
-        viewHolder.mBuildSize.setText(fileSize);
-
-        viewHolder.mProgress.setVisibility(View.INVISIBLE);
-        viewHolder.mProgressText.setVisibility(View.INVISIBLE);
-        viewHolder.mBuildSize.setVisibility(View.VISIBLE);
+        String buildSize = mActivity.getString(R.string.list_build_size,
+                fileSize);
+        viewHolder.mUpdateSize.setText(buildSize);
+        viewHolder.mDescription.setText(mActivity.getString(R.string.tv_description_1_text,
+                Utils.getDeviceModel()));
+        viewHolder.mProgressBar.setVisibility(View.GONE);
+        viewHolder.mProgressText.setVisibility(View.GONE);
+        viewHolder.mUpdateSize.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -274,13 +257,10 @@ public class UpdatesListAdapter extends RecyclerView.Adapter<UpdatesListAdapter.
                 throw new RuntimeException("Unknown update status");
         }
 
-        String buildDate = StringGenerator.getDateLocalizedUTC(mActivity,
-                DateFormat.LONG, update.getTimestamp());
         String buildVersion = mActivity.getString(R.string.list_build_version,
                 Utils.getDisplayVersion(update.getVersion()));
-        viewHolder.mBuildDate.setText(buildDate);
-        viewHolder.mBuildVersion.setText(buildVersion);
-        viewHolder.mBuildVersion.setCompoundDrawables(null, null, null, null);
+        viewHolder.mUpdateVersion.setText(buildVersion);
+        viewHolder.mUpdateVersion.setCompoundDrawables(null, null, null, null);
 
         if (activeLayout) {
             handleActiveStatus(viewHolder, update);
@@ -459,11 +439,6 @@ public class UpdatesListAdapter extends RecyclerView.Adapter<UpdatesListAdapter.
                 .setNegativeButton(android.R.string.cancel, null);
     }
 
-    private View.OnClickListener getClickListener(final UpdateInfo update,
-            final boolean canDelete, View anchor) {
-        return view -> startActionMode(update, canDelete, anchor);
-    }
-
     private AlertDialog.Builder getInstallDialog(final String downloadId) {
         if (!isBatteryLevelOk()) {
             Resources resources = mActivity.getResources();
@@ -529,50 +504,6 @@ public class UpdatesListAdapter extends RecyclerView.Adapter<UpdatesListAdapter.
                         .putBoolean(Constants.HAS_SEEN_INFO_DIALOG, true)
                         .apply())
                 .show();
-    }
-
-    private void startActionMode(final UpdateInfo update, final boolean canDelete, View anchor) {
-        mSelectedDownload = update.getDownloadId();
-        notifyItemChanged(update.getDownloadId());
-
-        ContextThemeWrapper wrapper = new ContextThemeWrapper(mActivity,
-                R.style.AppTheme_PopupMenuOverlapAnchor);
-        PopupMenu popupMenu = new PopupMenu(wrapper, anchor, Gravity.NO_GRAVITY,
-                R.attr.actionOverflowMenuStyle, 0);
-        popupMenu.inflate(R.menu.menu_action_mode);
-
-        boolean shouldShowDelete = canDelete;
-        boolean isVerified = update.getPersistentStatus() == UpdateStatus.Persistent.VERIFIED;
-        if (isVerified && !Utils.canInstall(update) && !update.getAvailableOnline()) {
-            shouldShowDelete = false;
-        }
-        MenuBuilder menu = (MenuBuilder) popupMenu.getMenu();
-        menu.findItem(R.id.menu_delete_action).setVisible(shouldShowDelete);
-        menu.findItem(R.id.menu_copy_url).setVisible(update.getAvailableOnline());
-        menu.findItem(R.id.menu_export_update).setVisible(isVerified);
-
-        popupMenu.setOnMenuItemClickListener(item -> {
-            int itemId = item.getItemId();
-            if (itemId == R.id.menu_delete_action) {
-                getDeleteDialog(update.getDownloadId()).show();
-                return true;
-            } else if (itemId == R.id.menu_copy_url) {
-                Utils.addToClipboard(mActivity,
-                        mActivity.getString(R.string.label_download_url),
-                        update.getDownloadUrl(),
-                        mActivity.getString(R.string.toast_download_url_copied));
-                return true;
-            } else if (itemId == R.id.menu_export_update) {
-                if (mActivity != null) {
-                    mActivity.exportUpdate(update);
-                }
-                return true;
-            }
-            return false;
-        });
-
-        MenuPopupHelper helper = new MenuPopupHelper(wrapper, menu, anchor);
-        helper.show();
     }
 
     private void showInfoDialog() {

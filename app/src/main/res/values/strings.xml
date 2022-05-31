@@ -16,7 +16,7 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">Updater</string>
-    <string name="display_name">Updater</string>
+    <string name="display_name">System Update</string>
 
     <!-- Directory where the update files will be downloaded and stored.
          WARNING: The application can and will delete any unknown file. -->
@@ -90,11 +90,12 @@
 
     <string name="snack_update_not_installable">This update can\'t be installed on top of the current build.</string>
 
-    <string name="header_title_text">PixelBlaster-OS\n%1$s</string>
+    <string name="header_title_text">System Update</string>
     <string name="header_android_version">Android <xliff:g id="version" example="7.1.2">%1$s</xliff:g></string>
     <string name="header_last_updates_check">Last checked: <xliff:g id="date" example="1 January 1970">%1$s</xliff:g> (<xliff:g id="time" example="01:23">%2$s</xliff:g>)</string>
 
-    <string name="list_build_version">PixelBlaster-OS <xliff:g id="version" example="14.1">%1$s</xliff:g></string>
+    <string name="list_build_version">PixelBlaster Version: <xliff:g id="version" example="14.1">%1$s</xliff:g></string>
+    <string name="list_build_size">Build Size: <xliff:g id="size" example="1.8 GB">%1$s</xliff:g></string>
     <string name="list_build_version_date">PixelBlaster-OS <xliff:g id="version" example="14.1">%1$s</xliff:g> - <xliff:g id="date" example="July 11, 2017">%2$s</xliff:g></string>
     <string name="list_download_progress_newer"><xliff:g id="filesize_without_unit" example="12.2">%1$s</xliff:g> of <xliff:g id="filesize_without_unit" example="310 MB">%2$s</xliff:g></string>
     <string name="list_download_progress_eta_newer"><xliff:g id="filesize_without_unit" example="12.2">%1$s</xliff:g> of <xliff:g id="filesize_without_unit" example="310 MB">%2$s</xliff:g> (<xliff:g id="eta" example="3 minutes left">%3$s</xliff:g>)</string>
@@ -167,4 +168,14 @@
 
     <!-- Blocked dialog -->
     <string name="blocked_update_dialog_message_custom">This update cannot be installed using the updater app. Try installing update via recovery.</string>
+  <string name="header_downloading">Downloading system update...</string>
+    <string name="header_installing">Installing system update...</string>
+    <string name="header_verifying">Verifying system update</string>
+    <string name="header_installed">System update installed</string>
+    <string name="header_available">System update available</string>
+    <string name="tv_description_1_text">Improve the security of your device (<xliff:g id="device_model">%1$s</xliff:g>)</string>
+    <string name="tv_description_2_text">This update fixes critical bugs and improves the performance and stability of your device.</string>
+    <string name="tv_description_3_text">Downloading updates over a mobile network or while roaming may cause additional charges</string>
+    <string name="header_checking_for_updates">Checking for updates</string>
+    <string name="your_system_is_up_to_date">Your system is up to date</string>
 </resources>
