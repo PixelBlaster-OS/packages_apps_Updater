@@ -447,6 +447,13 @@ public class UpdatesListAdapter extends RecyclerView.Adapter<UpdatesListAdapter.
                 .setNegativeButton(android.R.string.cancel, null);
     }
 
+    private AlertDialog.Builder showChangelogDialog() {
+
+        return new AlertDialog.Builder(mActivity, R.style.CustomDialog)
+                .setTitle(R.string.changelog_title)
+                .setView(R.layout.changelog_dialog);
+    }
+
     private View.OnClickListener getClickListener(final UpdateInfo update,
             final boolean canDelete, View anchor) {
         return view -> startActionMode(update, canDelete, anchor);
@@ -532,6 +539,7 @@ public class UpdatesListAdapter extends RecyclerView.Adapter<UpdatesListAdapter.
         MenuBuilder menu = (MenuBuilder) popupMenu.getMenu();
         menu.findItem(R.id.menu_delete_action).setVisible(canDelete);
         menu.findItem(R.id.menu_copy_url).setVisible(update.getAvailableOnline());
+        menu.findItem(R.id.menu_show_update_changelog).setVisible(update.getAvailableOnline());
         menu.findItem(R.id.menu_export_update).setVisible(
                 update.getPersistentStatus() == UpdateStatus.Persistent.VERIFIED);
 
@@ -550,6 +558,9 @@ public class UpdatesListAdapter extends RecyclerView.Adapter<UpdatesListAdapter.
                 if (mActivity != null) {
                     mActivity.exportUpdate(update);
                 }
+                return true;
+            } else if (itemId == R.id.menu_show_update_changelog) {
+                showChangelogDialog().show();
                 return true;
             }
             return false;
