@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.lineageos.updater;
+package com.blaster.Updater;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -22,13 +22,13 @@ import android.net.Uri;
 import android.os.ParcelFileDescriptor;
 import android.util.Log;
 
-import org.json.JSONException;
-import org.lineageos.updater.controller.UpdaterController;
-import org.lineageos.updater.controller.UpdaterService;
-import org.lineageos.updater.misc.Utils;
-import org.lineageos.updater.model.Update;
-import org.lineageos.updater.model.UpdateInfo;
-import org.lineageos.updater.model.UpdateStatus;
+import com.blaster.Updater.controller.UpdaterController;
+
+import org.lineageos.updater.R;
+
+import com.blaster.Updater.misc.Utils;
+import com.blaster.Updater.model.Update;
+import com.blaster.Updater.model.UpdateStatus;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -38,7 +38,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Enumeration;
-import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 

@@ -13,10 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.lineageos.updater;
+package com.blaster.Updater;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -56,17 +55,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SimpleItemAnimator;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.blaster.Updater.controller.UpdaterController;
+import com.blaster.Updater.controller.UpdaterService;
+import com.blaster.Updater.download.DownloadClient;
+import com.blaster.Updater.misc.BuildInfoUtils;
+import com.blaster.Updater.misc.Constants;
+import com.blaster.Updater.misc.StringGenerator;
+import com.blaster.Updater.misc.Utils;
+import com.blaster.Updater.model.Update;
+import com.blaster.Updater.model.UpdateInfo;
 
 import org.json.JSONException;
-import org.lineageos.updater.controller.UpdaterController;
-import org.lineageos.updater.controller.UpdaterService;
-import org.lineageos.updater.download.DownloadClient;
-import org.lineageos.updater.misc.BuildInfoUtils;
-import org.lineageos.updater.misc.Constants;
-import org.lineageos.updater.misc.StringGenerator;
-import org.lineageos.updater.misc.Utils;
-import org.lineageos.updater.model.Update;
-import org.lineageos.updater.model.UpdateInfo;
+import org.lineageos.updater.R;
 
 import java.io.File;
 import java.io.IOException;
@@ -91,7 +91,7 @@ public class UpdatesActivity extends UpdatesListActivity implements UpdateImport
     private final ActivityResultLauncher<Intent> mExportUpdate = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
-                if (result.getResultCode() == Activity.RESULT_OK) {
+                if (result.getResultCode() == RESULT_OK) {
                     Intent intent = result.getData();
                     if (intent != null) {
                         Uri uri = intent.getData();
@@ -172,7 +172,7 @@ public class UpdatesActivity extends UpdatesListActivity implements UpdateImport
         super.onStart();
         Intent intent = new Intent(this, UpdaterService.class);
         startService(intent);
-        bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
+        bindService(intent, mConnection, BIND_AUTO_CREATE);
 
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(UpdaterController.ACTION_UPDATE_STATUS);

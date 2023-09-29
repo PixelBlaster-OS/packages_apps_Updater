@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.lineageos.updater.misc;
+package com.blaster.Updater.misc;
 
 import android.app.AlarmManager;
 import android.content.ClipData;
@@ -32,15 +32,16 @@ import android.widget.Toast;
 
 import androidx.preference.PreferenceManager;
 
+import com.blaster.Updater.controller.UpdaterService;
+import com.blaster.Updater.model.Update;
+import com.blaster.Updater.model.UpdateBaseInfo;
+import com.blaster.Updater.model.UpdateInfo;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.lineageos.updater.R;
-import org.lineageos.updater.UpdatesDbHelper;
-import org.lineageos.updater.controller.UpdaterService;
-import org.lineageos.updater.model.Update;
-import org.lineageos.updater.model.UpdateBaseInfo;
-import org.lineageos.updater.model.UpdateInfo;
+import com.blaster.Updater.UpdatesDbHelper;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -50,7 +51,6 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Locale;
 import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;

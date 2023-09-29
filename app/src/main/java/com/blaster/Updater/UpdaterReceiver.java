@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.lineageos.updater;
+package com.blaster.Updater;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -28,10 +28,12 @@ import android.os.SystemProperties;
 import androidx.core.app.NotificationCompat;
 import androidx.preference.PreferenceManager;
 
-import org.lineageos.updater.misc.BuildInfoUtils;
-import org.lineageos.updater.misc.Constants;
-import org.lineageos.updater.misc.StringGenerator;
-import org.lineageos.updater.misc.Utils;
+import com.blaster.Updater.misc.BuildInfoUtils;
+import com.blaster.Updater.misc.Constants;
+import com.blaster.Updater.misc.StringGenerator;
+import com.blaster.Updater.misc.Utils;
+
+import org.lineageos.updater.R;
 
 import java.text.DateFormat;
 

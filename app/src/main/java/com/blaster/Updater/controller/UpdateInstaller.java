@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.lineageos.updater.controller;
+package com.blaster.Updater.controller;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -23,11 +23,11 @@ import android.util.Log;
 
 import androidx.preference.PreferenceManager;
 
-import org.lineageos.updater.misc.Constants;
-import org.lineageos.updater.misc.FileUtils;
-import org.lineageos.updater.misc.Utils;
-import org.lineageos.updater.model.UpdateInfo;
-import org.lineageos.updater.model.UpdateStatus;
+import com.blaster.Updater.model.UpdateInfo;
+import com.blaster.Updater.model.UpdateStatus;
+import com.blaster.Updater.misc.Constants;
+import com.blaster.Updater.misc.FileUtils;
+import com.blaster.Updater.misc.Utils;
 
 import java.io.File;
 import java.io.IOException;

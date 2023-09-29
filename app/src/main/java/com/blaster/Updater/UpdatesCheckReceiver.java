@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.lineageos.updater;
+package com.blaster.Updater;
 
 import android.app.AlarmManager;
 import android.app.NotificationChannel;
@@ -29,10 +29,12 @@ import android.util.Log;
 import androidx.core.app.NotificationCompat;
 import androidx.preference.PreferenceManager;
 
+import com.blaster.Updater.download.DownloadClient;
+import com.blaster.Updater.misc.Constants;
+import com.blaster.Updater.misc.Utils;
+
 import org.json.JSONException;
-import org.lineageos.updater.download.DownloadClient;
-import org.lineageos.updater.misc.Constants;
-import org.lineageos.updater.misc.Utils;
+import org.lineageos.updater.R;
 
 import java.io.File;
 import java.io.IOException;

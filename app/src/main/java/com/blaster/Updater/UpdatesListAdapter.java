@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.lineageos.updater;
+package com.blaster.Updater;
 
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -25,7 +25,6 @@ import android.text.format.Formatter;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,26 +35,22 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.view.ContextThemeWrapper;
-import androidx.appcompat.view.menu.MenuBuilder;
-import androidx.appcompat.view.menu.MenuPopupHelper;
-import androidx.appcompat.widget.PopupMenu;
 import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.blaster.Updater.controller.UpdaterController;
+import com.blaster.Updater.controller.UpdaterService;
+import com.blaster.Updater.misc.Constants;
+import com.blaster.Updater.misc.StringGenerator;
+import com.blaster.Updater.misc.Utils;
+import com.blaster.Updater.model.UpdateInfo;
+import com.blaster.Updater.model.UpdateStatus;
 
-import org.lineageos.updater.controller.UpdaterController;
-import org.lineageos.updater.controller.UpdaterService;
-import org.lineageos.updater.misc.Constants;
-import org.lineageos.updater.misc.StringGenerator;
-import org.lineageos.updater.misc.Utils;
-import org.lineageos.updater.model.UpdateInfo;
-import org.lineageos.updater.model.UpdateStatus;
+import org.lineageos.updater.R;
 
 import java.io.IOException;
 import java.text.DateFormat;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
