@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017-2022 The LineageOS Project
+ * Copyright (C) PixelBlaster-OS
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.lineageos.updater.controller;
+package com.blaster.updater.controller;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -35,17 +36,15 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.preference.PreferenceManager;
 
 import org.lineageos.updater.R;
-import org.lineageos.updater.UpdaterReceiver;
-import org.lineageos.updater.UpdatesActivity;
-import org.lineageos.updater.misc.BuildInfoUtils;
-import org.lineageos.updater.misc.Constants;
-import org.lineageos.updater.misc.StringGenerator;
-import org.lineageos.updater.misc.Utils;
-import org.lineageos.updater.model.Update;
-import org.lineageos.updater.model.UpdateInfo;
-import org.lineageos.updater.model.UpdateStatus;
+import com.blaster.updater.UpdaterReceiver;
+import com.blaster.updater.UpdatesActivity;
+import com.blaster.updater.misc.Constants;
+import com.blaster.updater.misc.StringGenerator;
+import com.blaster.updater.misc.Utils;
+import com.blaster.updater.model.Update;
+import com.blaster.updater.model.UpdateInfo;
+import com.blaster.updater.model.UpdateStatus;
 
-import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.NumberFormat;

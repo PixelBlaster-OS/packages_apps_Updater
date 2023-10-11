@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017-2023 The LineageOS Project
+ * Copyright (C) PixelBlaster-OS
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.lineageos.updater.misc;
+package com.blaster.updater.misc;
 
 import android.app.AlarmManager;
 import android.content.ClipData;
@@ -32,15 +33,17 @@ import android.widget.Toast;
 
 import androidx.preference.PreferenceManager;
 
+import com.blaster.updater.UpdatesDbHelper;
+import com.blaster.updater.controller.UpdaterService;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.lineageos.updater.R;
-import org.lineageos.updater.UpdatesDbHelper;
-import org.lineageos.updater.controller.UpdaterService;
-import org.lineageos.updater.model.Update;
-import org.lineageos.updater.model.UpdateBaseInfo;
-import org.lineageos.updater.model.UpdateInfo;
+
+import com.blaster.updater.model.Update;
+import com.blaster.updater.model.UpdateBaseInfo;
+import com.blaster.updater.model.UpdateInfo;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -50,7 +53,6 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Locale;
 import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
