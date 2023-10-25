@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2020 Shift GmbH
+ * Copyright (C) PixelBlaster-OS
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.lineageos.updater;
+package com.blaster.updater;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -22,13 +23,13 @@ import android.net.Uri;
 import android.os.ParcelFileDescriptor;
 import android.util.Log;
 
-import org.json.JSONException;
-import org.lineageos.updater.controller.UpdaterController;
-import org.lineageos.updater.controller.UpdaterService;
-import org.lineageos.updater.misc.Utils;
-import org.lineageos.updater.model.Update;
-import org.lineageos.updater.model.UpdateInfo;
-import org.lineageos.updater.model.UpdateStatus;
+import com.blaster.updater.misc.Utils;
+import com.blaster.updater.model.Update;
+import com.blaster.updater.model.UpdateStatus;
+
+import com.blaster.updater.R;
+
+import com.blaster.updater.controller.UpdaterController;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -38,7 +39,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Enumeration;
-import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 

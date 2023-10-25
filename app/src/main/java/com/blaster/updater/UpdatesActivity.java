@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017-2023 The LineageOS Project
+ * Copyright (C) PixelBlaster-OS
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.lineageos.updater;
+package com.blaster.updater;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -56,17 +57,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SimpleItemAnimator;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.blaster.updater.controller.UpdaterService;
+import com.blaster.updater.download.DownloadClient;
+import com.blaster.updater.misc.BuildInfoUtils;
+import com.blaster.updater.misc.Constants;
+import com.blaster.updater.misc.StringGenerator;
+import com.blaster.updater.misc.Utils;
+import com.blaster.updater.model.Update;
+import com.blaster.updater.model.UpdateInfo;
 
 import org.json.JSONException;
-import org.lineageos.updater.controller.UpdaterController;
-import org.lineageos.updater.controller.UpdaterService;
-import org.lineageos.updater.download.DownloadClient;
-import org.lineageos.updater.misc.BuildInfoUtils;
-import org.lineageos.updater.misc.Constants;
-import org.lineageos.updater.misc.StringGenerator;
-import org.lineageos.updater.misc.Utils;
-import org.lineageos.updater.model.Update;
-import org.lineageos.updater.model.UpdateInfo;
+import com.blaster.updater.R;
+
+import com.blaster.updater.controller.UpdaterController;
 
 import java.io.File;
 import java.io.IOException;
