@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 The LineageOS Project
+ * Copyright (C) PixelBlaster-OS
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,27 +14,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.lineageos.updater.model;
+package com.blaster.updater.model;
 
-public enum UpdateStatus {
-    UNKNOWN,
-    STARTING,
-    DOWNLOADING,
-    PAUSED,
-    PAUSED_ERROR,
-    DELETED,
-    VERIFYING,
-    VERIFIED,
-    VERIFICATION_FAILED,
-    INSTALLING,
-    INSTALLED,
-    INSTALLATION_FAILED,
-    INSTALLATION_CANCELLED,
-    INSTALLATION_SUSPENDED;
+public interface UpdateBaseInfo {
+    String getName();
 
-    public static final class Persistent {
-        public static final int UNKNOWN = 0;
-        public static final int INCOMPLETE = 1;
-        public static final int VERIFIED = 2;
-    }
+    String getDownloadId();
+
+    long getTimestamp();
+
+    String getType();
+
+    String getVersion();
+
+    String getDownloadUrl();
+
+    long getFileSize();
 }

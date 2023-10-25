@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017-2022 The LineageOS Project
+ * Copyright (C) PixelBlaster-OS
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.lineageos.updater.controller;
+package com.blaster.updater.controller;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -23,11 +24,11 @@ import android.util.Log;
 
 import androidx.preference.PreferenceManager;
 
-import org.lineageos.updater.misc.Constants;
-import org.lineageos.updater.misc.FileUtils;
-import org.lineageos.updater.misc.Utils;
-import org.lineageos.updater.model.UpdateInfo;
-import org.lineageos.updater.model.UpdateStatus;
+import com.blaster.updater.misc.Constants;
+import com.blaster.updater.misc.FileUtils;
+import com.blaster.updater.misc.Utils;
+import com.blaster.updater.model.UpdateInfo;
+import com.blaster.updater.model.UpdateStatus;
 
 import java.io.File;
 import java.io.IOException;
